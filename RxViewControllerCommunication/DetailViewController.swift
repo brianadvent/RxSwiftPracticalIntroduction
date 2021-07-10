@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 
 /*protocol CharacterDelegate {
     func didSelectCharacter (_ name:String)
@@ -18,7 +19,7 @@ class DetailViewController: UIViewController {
     
     // var delegate:CharacterDelegate?
     
-    private let selectedCharacterVariable = Variable("User")
+    private let selectedCharacterVariable = BehaviorRelay(value: "User")
     var selectedCharacter:Observable<String> {
         return selectedCharacterVariable.asObservable()
     }
@@ -37,7 +38,7 @@ class DetailViewController: UIViewController {
     @IBAction func characterSelected(_ sender: UIButton) {
         guard let characterName = sender.titleLabel?.text else {return}
         
-        selectedCharacterVariable.value = characterName
+        selectedCharacterVariable.accept(characterName)
         
         /*if let delegateObject = delegate {
             delegateObject.didSelectCharacter(characterName)
